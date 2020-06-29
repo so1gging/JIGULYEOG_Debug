@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	window.onload = function(){ 
 		location.href="index.do";
-	} 
+	}
 	
 </script>
 </body>
