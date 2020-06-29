@@ -348,13 +348,13 @@
             
             <div class="row">
 
-              <div class="col-md-8" width="400px;">
+              <div class="col-md-8">
               	<div style="color:#28a745;">환경 프로젝트</div>
                 <h2>${project.pro_title }</h2>
                 <br>
                 <p class="mb-4"><img src="${pageContext.request.contextPath}/resources/upload/images/project/${project.pro_image}" alt="" class="img-fluid" style="width: 500px; height: 460px; "></p>
 
-                <div class="project-detail" style="word-break:break-all;">
+                <div class="project-detail">
                 	${project.pro_detail }
                 </div>
                 <div class="pt-5 mt-5">
