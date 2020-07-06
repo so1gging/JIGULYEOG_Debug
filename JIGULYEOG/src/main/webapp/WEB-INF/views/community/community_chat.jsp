@@ -84,7 +84,7 @@
       			 }
       		 });
       		 
-      		 // 보냄
+      		 // 보냄(클릭 시)
       		 $("#msg_submit").click(function(){
       			var content = $("#msg").val();
       			
@@ -104,6 +104,30 @@
       			$("#msg").val("");
       			$("#chat_body").append(str);
       			
+      		 });
+      		 
+      		// 보냄(엔터)
+      		$("#msg").keydown(function(key){
+      			if (key.keyCode == 13) {
+      			var content = $("#msg").val();
+      			
+      			if(!content){
+      	            alert("대화내용을 입력해주세요");
+      	            return ;
+      	        }
+      			
+      			//<div class="msgbox_me">내가보낸 메세지메세지</div>
+      			var str = '<div class="msgbox_me">';
+      			str += content;
+      			str += '</div>';
+      			
+      			// sendChat
+      			socket.emit("sendChat",{commNo:commNo,data:content,userId:userId,userNick:userNick});
+      			
+      			$("#msg").val("");
+      			$("#chat_body").append(str);
+      			return false;
+      			}
       		 });
       		 
       		 // 받음
@@ -173,10 +197,10 @@
 
                     </div>
                 
-                    <div class="chat_input">
+                    <form class="chat_input" onsubmit="return false">
                         <input  type="text" placeholder="메시지를 입력하세요." class="form-control" style="border-radius:5px; display: inline-block; width: 80%;" size="50" name="text" id="msg">  
                         <input type="button" value="작 성" class="btn btn-primary" style=" border-radius:5px; display: inline-block;  width: 100px;" id="msg_submit">
-                    </div>     	
+                    </form>     	
                 </div>
 
                 <!--참가자-->
