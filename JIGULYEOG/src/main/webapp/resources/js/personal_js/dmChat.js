@@ -60,11 +60,68 @@ $(function(){
 					location.reload();
 					
 				}
+         
          });
     	
          $("#messageContent").val("");
          $("#chatLog").append(str);
          
+    });
+    
+    // 메세지 보내기 엔터
+    $("#messageContent").keydown(function(key){
+    	if (key.keyCode == 13) {
+    	var content = $("#messageContent").val();
+    	
+    	if(!content){
+            alert("대화내용을 입력해주세요");
+            return ;
+        }
+    	
+    	 var str = '<div class="myMsg">';
+         str += '<span class="msg">';
+         str += content;
+         str += '</span>';
+         str += '</div>';
+         
+         // 메세지를 보냄
+         socket.emit("sendDM",{chatKey:chatkey, data:content,receive:receiveId,send:sendId});
+         
+         var param = {
+        		 "dm_key":chatkey,
+        		 "dm_host":sendId,
+        		 "send_id":sendId,
+        		 "receive_id":receiveId,
+        		 "dm_content":content
+         };
+         
+         $.ajax({
+        	 type:"post",
+        	 url:"insertDMChat.do",
+        	 data: JSON.stringify(param),
+        	 contentType:"application/json",
+			 dataType:"json",
+			 success:function(msg){
+				 if(msg.check==true){
+					 
+				 }else{
+					 alert("메세지 전송 오류 ! [해당 페이지를 새로고침 합니다.]");
+					  location.reload();
+				 }
+			 },
+			 error:function(){
+					alert("AJAX: 통신오류! [해당 페이지를 새로고침 합니다.]");
+					location.reload();
+					
+				}
+         
+         });
+    	
+         $("#messageContent").val("");
+         $("#chatLog").append(str);
+         
+         return false;
+    	}
     });
     
     socket.on("sendDM",function(data){

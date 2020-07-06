@@ -118,7 +118,7 @@
                             <div id="chatLog">
                               
                             </div>
-                            <form id="chatForm">
+                            <form id="chatForm" onsubmit="return false">
                                 <input type="text" autocomplete="off" size="30" id="messageContent" placeholder="메시지를 입력하세요">
                                 <input type="button" id="sendMessage" value="보내기">
                             </form>
